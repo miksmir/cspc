@@ -12,6 +12,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 import math
 import os
 import ray
+import point_cloud_utils as pcu
 
 
 """ ------------------------- Global Variables --------------------------"""
@@ -390,7 +391,20 @@ class CSPCdwt:
         mae_val = mean_absolute_error(point_cloud, point_cloud_reconstructed)
         print("MAE: ", mae_val)
         
-        errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val)
+        # Chamfer Distance
+        cd_val = pcu.chamfer_distance(point_cloud, point_cloud_reconstructed)
+        print("Chamfer Distance: ", cd_val)
+        
+        # Hausdorff Distance
+        hd_val = pcu.hausdorff_distance(point_cloud, point_cloud_reconstructed)
+        print("Hausdorff Distance: ", hd_val)
+        
+        # Earth Mover's Distance
+        emd_val = 0 # TODO Disable EMD for now since it takes too long to calculate
+        #emd_val, pi_val = pcu.earth_movers_distance(point_cloud, point_cloud_reconstructed) # Calculating EMD takes a VERY long time
+        #print("Earth Mover's Distance: ", emd_val)
+        
+        errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val, CD = cd_val, HD = hd_val, EMD = emd_val)
         
         return errors
 
@@ -1618,6 +1632,16 @@ def exportReconstructionInfo(info, errors, solve_time, sparsity, outputfile='D:/
     # Mean Absolute Error
     filetxt.write(f"Mean Absolute Error: {errors['MAE']:.4f} \n")
     filetxt.write("\n")
+    # Chamfer Distance
+    filetxt.write(f"Chamfer Distance: {errors['CD']:.4f} \n")
+    filetxt.write("\n")
+    # Hausdorff Distance
+    filetxt.write(f"Hausdorff Distance: {errors['HD']:.4f} \n")
+    filetxt.write("\n")
+    # Earth Mover's Distance
+    filetxt.write(f"Earth Mover's Distance: {errors['EMD']:.4f} \n")
+    filetxt.write("\n")
+    
     # Solver time
     filetxt.write(f"Solver time: {solve_time} [s]\n")
     filetxt.write("\n")
@@ -1631,44 +1655,45 @@ def exportReconstructionInfo(info, errors, solve_time, sparsity, outputfile='D:/
         
     filetxt.close()
 
-def exportSimulationInfo(outputpath, metadata, l2norm_arr, MSE_arr, RMSE_arr, MAE_arr, solvertime_arr):
-    """ This function exports any simulation info to a .txt file. """
-    avg_l2norm = np.mean(l2norm_arr)
-    avg_MSE = np.mean(MSE_arr)
-    avg_RMSE = np.mean(RMSE_arr)
-    avg_MAE = np.mean(MAE_arr)
-    avg_solvertime = np.mean(solvertime_arr)
+# TODO UNUSED FUNCTION, MAY BE NOT USEFUL
+# def exportSimulationInfo(outputpath, metadata, l2norm_arr, MSE_arr, RMSE_arr, MAE_arr, solvertime_arr):
+#     """ This function exports any simulation info to a .txt file. """
+#     avg_l2norm = np.mean(l2norm_arr)
+#     avg_MSE = np.mean(MSE_arr)
+#     avg_RMSE = np.mean(RMSE_arr)
+#     avg_MAE = np.mean(MAE_arr)
+#     avg_solvertime = np.mean(solvertime_arr)
     
-    filetxt = open(os.path.normpath(outputpath), "w")
-    filetxt.write(metadata)
-    filetxt.write("\n \n--- \n\n")
-    filetxt.write(f"Average 2-Norm Error: {avg_l2norm:.4f} \n")
-    # Mean Squared Error
-    filetxt.write(f"Average Mean Squared Error: {avg_MSE:.4f} \n")
-    # Root Mean Squared Error
-    filetxt.write(f"Average Root Mean Squared Error: {avg_RMSE:.4f} \n")
-    # Mean Absolute Error
-    filetxt.write(f"Average Mean Absolute Error: {avg_MAE:.4f} \n")
-    # Solver time
-    filetxt.write(f"Average Solver time: {avg_solvertime:.4f} [s]\n")
-    filetxt.write("\n")
-    filetxt.write("-----------------------------------")
-    filetxt.write("\n2-Norm:\n")
-    for element in l2norm_arr:
-        filetxt.write(str(element) + ',')
-    filetxt.write("\n\nMSE:\n")
-    for element in MSE_arr:
-        filetxt.write(str(element) + ',')
-    filetxt.write("\n\nRMSE:\n")
-    for element in RMSE_arr:
-        filetxt.write(str(element) + ',')
-    filetxt.write("\n\nMAE:\n")
-    for element in MAE_arr:
-        filetxt.write(str(element) + ',')
-    filetxt.write("\n\nSolver times:\n")
-    for element in solvertime_arr:
-        filetxt.write(str(element) + ',')        
-    filetxt.close()
+#     filetxt = open(os.path.normpath(outputpath), "w")
+#     filetxt.write(metadata)
+#     filetxt.write("\n \n--- \n\n")
+#     filetxt.write(f"Average 2-Norm Error: {avg_l2norm:.4f} \n")
+#     # Mean Squared Error
+#     filetxt.write(f"Average Mean Squared Error: {avg_MSE:.4f} \n")
+#     # Root Mean Squared Error
+#     filetxt.write(f"Average Root Mean Squared Error: {avg_RMSE:.4f} \n")
+#     # Mean Absolute Error
+#     filetxt.write(f"Average Mean Absolute Error: {avg_MAE:.4f} \n")
+#     # Solver time
+#     filetxt.write(f"Average Solver time: {avg_solvertime:.4f} [s]\n")
+#     filetxt.write("\n")
+#     filetxt.write("-----------------------------------")
+#     filetxt.write("\n2-Norm:\n")
+#     for element in l2norm_arr:
+#         filetxt.write(str(element) + ',')
+#     filetxt.write("\n\nMSE:\n")
+#     for element in MSE_arr:
+#         filetxt.write(str(element) + ',')
+#     filetxt.write("\n\nRMSE:\n")
+#     for element in RMSE_arr:
+#         filetxt.write(str(element) + ',')
+#     filetxt.write("\n\nMAE:\n")
+#     for element in MAE_arr:
+#         filetxt.write(str(element) + ',')
+#     filetxt.write("\n\nSolver times:\n")
+#     for element in solvertime_arr:
+#         filetxt.write(str(element) + ',')        
+#     filetxt.close()
 
 def specifyOutputPath(output_folderpath, output_PCname, output_PCdescription):
     """ 
