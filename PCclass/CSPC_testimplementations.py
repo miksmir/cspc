@@ -7,8 +7,6 @@ Created on Tue May 20 13:20:42 2025
 import CSPointCloud as CSPC
 # ----------------------------------------------------------------
 if __name__ == "__main__":
-    print("hello world")
-
 
 # Chamfer Distance, Hausdorf Distance, Earth Mover's Distance
     import point_cloud_utils as pcu
@@ -17,7 +15,7 @@ if __name__ == "__main__":
 
     cd = pcu.chamfer_distance(pc1, pc2)
     hd = pcu.hausdorff_distance(pc1, pc2)
-    emd, pi = pcu.earth_movers_distance(pc1, pc2)
+    emd, pi = pcu.earth_movers_distance(pc1, pc2) # Calculating EMD takes a VERY long time
     
     print(f"Chamfer Distance: {cd}")
     print(f"Hausdorf Distance: {hd}")

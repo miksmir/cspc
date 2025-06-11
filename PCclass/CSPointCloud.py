@@ -1378,6 +1378,30 @@ def setupSimulationParameters(path, lasfile, num_points, cs_ratio, measurement_t
 
     return outputpath, plot_title, metadata
     
+def pcToArray(pcpath):
+    """ This function converts a .las point cloud to an (m x 3) matrix. """
+    las = laspy.read(os.path.normpath(pcpath))
+    '''print(las.x)
+    print(las.y)
+    print(las.z)'''
+    return np.stack([las.x,las.y,las.z], axis=-1)
+    #return np.array()
+    
+def arrayToPC(pcarray, pctype='dwt'):
+    """ This function converts an (m x 3) matrix to a .las point cloud."""
+    if(pctype=='dwt'):
+        pointcloud = CSPCdwt()
+        pointcloud.setManualCoords(pcarray[:,0], pcarray[:,1], pcarray[:,2])
+    elif(pctype=='dct'):
+        pointcloud = CSPCdct()
+        pointcloud.setManualCoords(pcarray[:,0], pcarray[:,1], pcarray[:,2])
+    elif(pctype=='dft'):
+        pointcloud = CSPCdft()
+        pointcloud.setManualCoords(pcarray[:,0], pcarray[:,1], pcarray[:,2])
+    else:
+        raise ValueError('Invalid PC Type. Choose "dwt", "dct", or "dft"')
+    return pointcloud
+
 def pclength(pcpath):
     """
     This function returns the length of the point cloud from the .las file name string.
