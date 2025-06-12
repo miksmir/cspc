@@ -24,6 +24,7 @@ if __name__ == "__main__":
     for cs_ratio in arr_cs_ratios:
         for sparsity_val in arr_sparsity_val:
             runCSPCdwt(inputpath = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/downsampled/ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.las', path='D:/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/thresholding', lasfile = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud.las', pcname = 'Park Slope', cs_ratio=cs_ratio, sparsity_val=sparsity_val, measurement_type='gaussian', wvlt = 'db2', ds_type='uniform', parallel=True)
+            runCSPCdct(inputpath = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/downsampled/ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.las', path='D:/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/thresholding', lasfile = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud.las', pcname = 'Park Slope', cs_ratio=cs_ratio, sparsity_val=sparsity_val, measurement_type='gaussian', ds_type='uniform', parallel=True)
     
     #arr_sparsity_val = [90]
     #arr_cs_ratios = [0.10]

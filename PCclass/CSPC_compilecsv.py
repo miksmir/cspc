@@ -14,7 +14,7 @@ def compile_csv_results(dir_path='C:\\Users\\misha\\Documents\\Thesis_CS\\Point_
     
     compiled_data = [] # Data from all parsed .txt files
     metadata = dict() # Data in each .txt file
-    fieldnames = ['Name', 'Points', 'CS Ratio', 'Measurement', 'Basis', 'Sparsity', 'Reconstruction', 'Solver time', '2-Norm Error', 'Mean Squared Error', 'Root Mean Squared Error', 'Mean Absolute Error']
+    fieldnames = ['Name', 'Points', 'CS Ratio', 'Measurement', 'Basis', 'Sparsity', 'Reconstruction', 'Solver time', '2-Norm Error', 'Mean Squared Error', 'Root Mean Squared Error', 'Mean Absolute Error', 'Chamfer Distance', 'Hausdorff Distance', 'Earth Mover\'s Distance']
     
     # Scan through directory for all .txt files and parse them
     for filename in os.listdir(os.path.normpath(dir_path)):
@@ -44,7 +44,7 @@ def compile_csv_results(dir_path='C:\\Users\\misha\\Documents\\Thesis_CS\\Point_
                 metadata[keysolvertime] = valuesolvertime.split(' [s]', 1)[0]
                 
                 # Remaining lines of metadata (output data i.e. reconstruction errors, solver time, etc)
-                for line in lines[1:6]:
+                for line in lines[1:9]:
                     if ':' in line:
                         # Key = string before colon and value = string after colon
                         key, value = line.split(':', 1)

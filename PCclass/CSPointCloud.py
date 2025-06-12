@@ -402,7 +402,7 @@ class CSPCdwt:
         # Earth Mover's Distance
         emd_val = 0 # TODO Disable EMD for now since it takes too long to calculate
         #emd_val, pi_val = pcu.earth_movers_distance(point_cloud, point_cloud_reconstructed) # Calculating EMD takes a VERY long time
-        #print("Earth Mover's Distance: ", emd_val)
+        print("Earth Mover's Distance: ", emd_val)
         
         errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val, CD = cd_val, HD = hd_val, EMD = emd_val)
         
@@ -822,7 +822,20 @@ class CSPCdct:
         mae_val = mean_absolute_error(point_cloud, point_cloud_reconstructed)
         print("MAE: ", mae_val)
         
-        errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val)
+        # Chamfer Distance
+        cd_val = pcu.chamfer_distance(point_cloud, point_cloud_reconstructed)
+        print("Chamfer Distance: ", cd_val)
+        
+        # Hausdorff Distance
+        hd_val = pcu.hausdorff_distance(point_cloud, point_cloud_reconstructed)
+        print("Hausdorff Distance: ", hd_val)
+        
+        # Earth Mover's Distance
+        emd_val = 0 # TODO Disable EMD for now since it takes too long to calculate
+        #emd_val, pi_val = pcu.earth_movers_distance(point_cloud, point_cloud_reconstructed) # Calculating EMD takes a VERY long time
+        print("Earth Mover's Distance: ", emd_val)
+        
+        errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val, CD = cd_val, HD = hd_val, EMD = emd_val)
         
         return errors
 
@@ -1219,7 +1232,20 @@ class CSPCdft:
         mae_val = mean_absolute_error(point_cloud, point_cloud_reconstructed)
         print("MAE: ", mae_val)
         
-        errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val)
+        # Chamfer Distance
+        cd_val = pcu.chamfer_distance(point_cloud, point_cloud_reconstructed)
+        print("Chamfer Distance: ", cd_val)
+        
+        # Hausdorff Distance
+        hd_val = pcu.hausdorff_distance(point_cloud, point_cloud_reconstructed)
+        print("Hausdorff Distance: ", hd_val)
+        
+        # Earth Mover's Distance
+        emd_val = 0 # TODO Disable EMD for now since it takes too long to calculate
+        #emd_val, pi_val = pcu.earth_movers_distance(point_cloud, point_cloud_reconstructed) # Calculating EMD takes a VERY long time
+        print("Earth Mover's Distance: ", emd_val)
+
+        errors = dict(l2norm = l2error_val, MSE = mse_val, RMSE = rmse_val, MAE = mae_val, CD = cd_val, HD = hd_val, EMD = emd_val)
         
         return errors
 
@@ -1631,13 +1657,10 @@ def exportReconstructionInfo(info, errors, solve_time, sparsity, outputfile='D:/
     filetxt.write(f"Root Mean Squared Error: {errors['RMSE']:.4f} \n")
     # Mean Absolute Error
     filetxt.write(f"Mean Absolute Error: {errors['MAE']:.4f} \n")
-    filetxt.write("\n")
     # Chamfer Distance
     filetxt.write(f"Chamfer Distance: {errors['CD']:.4f} \n")
-    filetxt.write("\n")
     # Hausdorff Distance
     filetxt.write(f"Hausdorff Distance: {errors['HD']:.4f} \n")
-    filetxt.write("\n")
     # Earth Mover's Distance
     filetxt.write(f"Earth Mover's Distance: {errors['EMD']:.4f} \n")
     filetxt.write("\n")
