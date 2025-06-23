@@ -5,6 +5,13 @@ Created on Wed Mar 12 06:13:34 2025
 @author: Mikhail
 """
 
+""" 
+This script takes the (x,y,z) coordinates from an (n x 3) matrix point 
+cloud and plots it either as a 3D scatter plot or as an overhead (top-down)
+contour plot.
+"""
+
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
