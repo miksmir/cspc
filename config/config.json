@@ -1,0 +1,5 @@
+{
+  "input_path_pclas": "D:/Documents/Thesis_CS/Point_Cloud_Outputs/downsampled",
+  "input_path_plots": "D:/Downloads",
+  "output_path_pclas": "D:/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/thresholding"
+}

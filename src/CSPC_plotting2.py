@@ -331,6 +331,7 @@ def plotbar_cs_basis(y1, y2, y3, y4, normalized=True, title='', labelsize=20, si
         y3 = (y3 - y3.min()) / (y3.max()-y3.min())
         y4 = (y4 - y4.min()) / (y4.max()-y4.min())
     
+    # Express cs_ratios as decimals instead
     if(cspercentage==False):
         cs_ratios_ = ("0.25", "0.50", "0.75")
         basis_dict = {
@@ -361,6 +362,7 @@ def plotbar_cs_basis(y1, y2, y3, y4, normalized=True, title='', labelsize=20, si
         ax.set_xlabel('Compression Ratio', fontsize=labelsize+4, labelpad=6)
         ax.legend(loc=loclegend, title='Basis', fontsize=labelsize+3, title_fontproperties={'size':labelsize+4}, bbox_to_anchor=bbox, ncol=2)
         ax.set_ylim(ylim)
+    # Express cs_ratios as percentage instead
     else:
         cs_ratios_ = ("25%", "50%", "75%")
         basis_dict = {

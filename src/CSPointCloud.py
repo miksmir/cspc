@@ -13,9 +13,14 @@ import math
 import os
 import ray
 import point_cloud_utils as pcu
-
+import config # Project-specific config variables
 
 """ ------------------------- Global Variables --------------------------"""
+from config import INPUT_PATH_LAS, OUTPUT_PATH_LAS
+"""
+INPUT_PATH_LAS = config.INPUT_PATH_LAS
+OUTPUT_PATH_LAS = config.OUTPUT_PATH_LAS
+"""
 
 # Custom colormap
 c_dict = {
