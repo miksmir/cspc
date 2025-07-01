@@ -16,7 +16,8 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
-
+import os
+from config import OUTPUT_PATH_PLOTS
 
 
 
@@ -36,7 +37,7 @@ c_dict = {
 
 
 
-def plotPC(x, y, z, title, e_angle, a_angle, heightshown=True, pointsize=5, colormap='twilight'):
+def plotPC(x, y, z, title, e_angle, a_angle, heightshown=True, pointsize=5, colormap='twilight', figname='3dfig.pdf'):
     """ This function provides a 3D scatter plot of x,y,z coordinates without
     belonging to any class or object. """
     fig = plt.figure(figsize=(12, 8))
@@ -72,9 +73,9 @@ def plotPC(x, y, z, title, e_angle, a_angle, heightshown=True, pointsize=5, colo
         ax1.set_zlabel('$Z$', fontsize=15)
         ax1.view_init(elev=e_angle, azim=a_angle)
     #plt.savefig("C:/Users/misha/Downloads/ColumbusCircle_90thresholded_25DCT.pdf", format="pdf", bbox_inches="tight")
-    plt.savefig("C:/Users/misha/Downloads/MountMarcy_90thresholded_25Db2.pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format="pdf", bbox_inches="tight")
         
-def plotContourPC(x, y, z, title='Filled Contour Plot', pointsize=25, colormap='plasma'):
+def plotContourPC(x, y, z, title='Filled Contour Plot', pointsize=25, colormap='plasma', figname='contourfig.pdf'):
     """ This function plots a top-down 3D contour plot to visualize elevation values with a colormap."""
     
     # Custom blue-green-yellow-red colormap
@@ -93,17 +94,17 @@ def plotContourPC(x, y, z, title='Filled Contour Plot', pointsize=25, colormap='
     ax.set_ylabel('$Y [m]$')
     ax.set_title(title)
     #plt.savefig("C:/Users/misha/Downloads/ColumbusCircle_90thresholded_25DCT_contour.pdf", format="pdf", bbox_inches="tight")
-    plt.savefig("C:/Users/misha/Downloads/MountMarcy_90thresholded_25Db2_contour.pdf", format="pdf", bbox_inches="tight")
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format="pdf", bbox_inches="tight")
 
 if __name__ == "__main__":
     pcname = 'Mount Marcy'
     
-    #file = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/downsampled/ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.npy'
+    file = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/downsampled/ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.npy'
     #file = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_DCT_50Gaussian_of_5000ds_uniform.npy'
     
     #file = 'C:/Users/misha/Documents/Thesis_CS/Point_Cloud_Outputs/downsampled/Deerpark_Cuddebackville_u_5325059000_2022_5000ds_uniform.npy'
     #file = 'C:/Users/misha/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/thresholding/Columbus_Circle_987217_Buildings_LidarClassifiedPointCloud_90thresholded_DCT_25Gaussian_of_5000ds_uniform.npy'
-    file = 'C:/Users/misha/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/thresholding/MtMarcy_u_5865088400_2015_90thresholded_DWT_Db2_25Gaussian_of_5000ds_uniform.npy'
+    #file = 'C:/Users/misha/Documents/Thesis_CS/Point_Cloud_Outputs/reconstruction/NYCOpenData/thresholding/MtMarcy_u_5865088400_2015_90thresholded_DWT_Db2_25Gaussian_of_5000ds_uniform.npy'
     
     pc = np.load(file)
     
@@ -111,8 +112,8 @@ if __name__ == "__main__":
     plot_title = f'Reconstructed: {pcname} (25% Reconstructed Db2 DWT at 90% Sparsity)'
     
     
-    plotPC(x=pc[:,0], y=pc[:,1], z=pc[:,2], title=plot_title, e_angle=35, a_angle=-205, colormap='BGYR')
-    plotContourPC(pc[:,0], pc[:,1], pc[:,2], title=plot_title, colormap='BGYR')
+    plotPC(x=pc[:,0], y=pc[:,1], z=pc[:,2], title=plot_title, e_angle=35, a_angle=-205, colormap='BGYR', figname='MountMarcy_90thresholded_25Db2.pdf')
+    plotContourPC(pc[:,0], pc[:,1], pc[:,2], title=plot_title, colormap='BGYR', figname='MountMarcy_90thresholded_25Db2_contour.pdf')
     
     
     

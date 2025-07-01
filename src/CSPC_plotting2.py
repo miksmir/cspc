@@ -15,6 +15,8 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
+import os
+from config import OUTPUT_PATH_PLOTS
 
 # Notes: Coif1 seems to work slightly better for Mt Marcy
 # But Db1 seems to work slightly better for Columbus Circle
@@ -200,7 +202,7 @@ ParkslopeMAE_cs75 = np.array([9.7533,  9.9737,   9.7332,  9.6748,  8.6984,  6.41
 
 
     # Same sparsity, different cs ratios, different basis
-def plot_cs_basis(y1, y2, y3, y4, normalized=True, xlabel='testx', ylabel='testy', title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
+def plot_cs_basis(y1, y2, y3, y4, normalized=True, xlabel='testx', ylabel='testy', title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
     fig, ax = plt.subplots(figsize=sizefig)
     
     # Min-max normalizing data between (0,1) range.
@@ -243,11 +245,11 @@ def plot_cs_basis(y1, y2, y3, y4, normalized=True, xlabel='testx', ylabel='testy
             ax.set_title(title, size=labelsize)
         ax.set_xticks([25, 50, 75])
         
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
     
     # Same cs ratio, different sparsity, different basis
-def plot_basis_sparsity(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None):
+def plot_basis_sparsity(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None):
     fig, ax = plt.subplots(figsize=sizefig)
     
     # Min-max normalizing data between (0,1) range.
@@ -275,11 +277,11 @@ def plot_basis_sparsity(y1, y2, y3, y4, normalized=True, title='', labelsize=20,
     if(title != ''):
         ax.set_title(title, size=labelsize)
     '''
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
     
     # Same basis, different sparsity, different cs ratios
-def plot_cs_sparsity(y1, y2, y3, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
+def plot_cs_sparsity(y1, y2, y3, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
     
     # Min-max normalizing data between (0,1) range.
     if(normalized):
@@ -317,11 +319,11 @@ def plot_cs_sparsity(y1, y2, y3, normalized=True, title='', labelsize=20, sizefi
     if(title != ''):
         ax.set_title(title, size=labelsize)
     '''
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
 
 
-def plotbar_cs_basis(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
+def plotbar_cs_basis(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
     fig, ax = plt.subplots(figsize=sizefig)
     
     # Min-max normalizing data between (0,1) range.
@@ -397,13 +399,13 @@ def plotbar_cs_basis(y1, y2, y3, y4, normalized=True, title='', labelsize=20, si
     if(title != ''):
         ax.set_title(title, size=labelsize)
     '''
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
     
 ''' ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- '''
 ''' Same plotting functions but adjusted to include 10% Compression Rate too'''
 
-def plot_cs_basis_10csratio(y1, y2, y3, y4, normalized=True, xlabel='testx', ylabel='testy', title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None):
+def plot_cs_basis_10csratio(y1, y2, y3, y4, normalized=True, xlabel='testx', ylabel='testy', title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None):
     
     # Min-max normalizing data between (0,1) range.
     if(normalized):
@@ -430,12 +432,12 @@ def plot_cs_basis_10csratio(y1, y2, y3, y4, normalized=True, xlabel='testx', yla
     #    ax.set_title(title, size=labelsize)
     
     ax.set_xticks([10, 25, 50, 75])
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
 
 
     # Same basis, different sparsity, different cs ratios
-def plot_cs_sparsity_10csratio(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None):
+def plot_cs_sparsity_10csratio(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None):
     
     # Min-max normalizing data between (0,1) range.
     if(normalized):
@@ -462,12 +464,12 @@ def plot_cs_sparsity_10csratio(y1, y2, y3, y4, normalized=True, title='', labels
     if(title != ''):
         ax.set_title(title, size=labelsize)
     '''
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
 
 
     # Same cs ratio, different sparsity, different basis
-def plot_basis_sparsity_10csratio(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None):
+def plot_basis_sparsity_10csratio(y1, y2, y3, y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None):
     
     # Min-max normalizing data between (0,1) range.
     if(normalized):
@@ -496,11 +498,11 @@ def plot_basis_sparsity_10csratio(y1, y2, y3, y4, normalized=True, title='', lab
     if(title != ''):
         ax.set_title(title, size=labelsize)
     '''
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
 
 
-def plotbar_cs_basis_10csratio(y1,y2,y3,y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='D:/Downloads/fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
+def plotbar_cs_basis_10csratio(y1,y2,y3,y4, normalized=True, title='', labelsize=20, sizefig=(12,8), loclegend='upper left', figname='fig.pdf', bbox=(0,0,1,1), ylim=None, cspercentage=False):
     
     # Min-max normalizing data between (0,1) range.
     if(normalized):
@@ -575,7 +577,7 @@ def plotbar_cs_basis_10csratio(y1,y2,y3,y4, normalized=True, title='', labelsize
     if(title != ''):
         ax.set_title(title, size=labelsize)
     '''
-    plt.savefig(figname, format='pdf', bbox_inches='tight')
+    plt.savefig(os.path.join(OUTPUT_PATH_PLOTS, figname), format='pdf', bbox_inches='tight')
     plt.show()
 
 
@@ -597,54 +599,54 @@ if __name__ == "__main__":
     
     # Choose the basis to use (DWT, coif1?)
     
-    plot_cs_sparsity(MtMarcyMAE_cs25, MtMarcyMAE_cs50, MtMarcyMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Mt. Marcy', bbox=(1,1), figname='D:/Downloads/MtMarcyDb2CS_v7_ratio.pdf') # bbox=(0,0.925-0.0165)
-    plot_cs_sparsity(DeerparkMAE_cs25, DeerparkMAE_cs50, DeerparkMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Deerpark', bbox=(1,1), figname='D:/Downloads/DeerparkDb2CS_v7_ratio.pdf') # bbox=(0,0.7)
-    plot_cs_sparsity(ColCircMAE_cs25, ColCircMAE_cs50, ColCircMAE_cs75, title='Reconstruction Using DCT of Columbus Circle', bbox=(1,1), figname='D:/Downloads/ColCircDCTCS_v7_ratio.pdf') # bbox=(0+0.35,0.95+0.002)
-    plot_cs_sparsity(ParkslopeMAE_cs25, ParkslopeMAE_cs50, ParkslopeMAE_cs75, title='Reconstruction Using DCT of Park Slope', bbox=(1,1), figname='D:/Downloads/ParkslopeDCTCS_v7_ratio.pdf') # bbox=(0,0.9)
+    plot_cs_sparsity(MtMarcyMAE_cs25, MtMarcyMAE_cs50, MtMarcyMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Mt. Marcy', bbox=(1,1), figname='MtMarcyDb2CS_v7_ratio.pdf') # bbox=(0,0.925-0.0165)
+    plot_cs_sparsity(DeerparkMAE_cs25, DeerparkMAE_cs50, DeerparkMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Deerpark', bbox=(1,1), figname='DeerparkDb2CS_v7_ratio.pdf') # bbox=(0,0.7)
+    plot_cs_sparsity(ColCircMAE_cs25, ColCircMAE_cs50, ColCircMAE_cs75, title='Reconstruction Using DCT of Columbus Circle', bbox=(1,1), figname='ColCircDCTCS_v7_ratio.pdf') # bbox=(0+0.35,0.95+0.002)
+    plot_cs_sparsity(ParkslopeMAE_cs25, ParkslopeMAE_cs50, ParkslopeMAE_cs75, title='Reconstruction Using DCT of Park Slope', bbox=(1,1), figname='ParkslopeDCTCS_v7_ratio.pdf') # bbox=(0,0.9)
     
     # Choose the CS Ratio to use (25%)
     
-    plot_basis_sparsity(MtMarcyMAE_dct, MtMarcyMAE_haar, MtMarcyMAE_db2, MtMarcyMAE_coif1, title='Reconstruction With 25% Compression of Mt. Marcy', bbox=(0,0.90+0.02), figname='D:/Downloads/MtMarcy25CSBases_v6.pdf')
-    plot_basis_sparsity(DeerparkMAE_dct, DeerparkMAE_haar, DeerparkMAE_db2, DeerparkMAE_coif1, title='Reconstruction With 25% Compression of Deerpark', bbox=(0.65,1), figname='D:/Downloads/Deerpark25CSBases_v6.pdf')
-    plot_basis_sparsity(ColCircMAE_dct, ColCircMAE_haar, ColCircMAE_db2, ColCircMAE_coif1, title='Reconstruction With 25% Compression of Columbus Circle', loclegend='lower left', figname='D:/Downloads/ColCirc25CSBases_v6.pdf')
-    plot_basis_sparsity(ParkslopeMAE_dct, ParkslopeMAE_haar, ParkslopeMAE_db2, ParkslopeMAE_coif1, title='Reconstruction With 25% Compression of Park Slope', loclegend='lower left', figname='D:/Downloads/Parkslope25CSBases_v6.pdf')
+    plot_basis_sparsity(MtMarcyMAE_dct, MtMarcyMAE_haar, MtMarcyMAE_db2, MtMarcyMAE_coif1, title='Reconstruction With 25% Compression of Mt. Marcy', bbox=(0,0.90+0.02), figname='MtMarcy25CSBases_v6.pdf')
+    plot_basis_sparsity(DeerparkMAE_dct, DeerparkMAE_haar, DeerparkMAE_db2, DeerparkMAE_coif1, title='Reconstruction With 25% Compression of Deerpark', bbox=(0.65,1), figname='Deerpark25CSBases_v6.pdf')
+    plot_basis_sparsity(ColCircMAE_dct, ColCircMAE_haar, ColCircMAE_db2, ColCircMAE_coif1, title='Reconstruction With 25% Compression of Columbus Circle', loclegend='lower left', figname='ColCirc25CSBases_v6.pdf')
+    plot_basis_sparsity(ParkslopeMAE_dct, ParkslopeMAE_haar, ParkslopeMAE_db2, ParkslopeMAE_coif1, title='Reconstruction With 25% Compression of Park Slope', loclegend='lower left', figname='Parkslope25CSBases_v6.pdf')
     
     
     # Choose the sparsity to use (80?, 90% instead now)
-    plot_cs_basis(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='D:/Downloads/MtMarcy90SparsityBases_v6_ratio.pdf')
-    plot_cs_basis(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='D:/Downloads/Deerpark90SparsityBases_v6_ratio.pdf')
-    plot_cs_basis(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction with 90% Sparsity of Columbus Circle', loclegend='upper right', figname='D:/Downloads/ColCirc90SparsityBases_v6_ratio.pdf')
-    plot_cs_basis(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction with 90% Sparsity of Park Slope', loclegend='upper right', figname='D:/Downloads/Parkslope90SparsityBases_v6_ratio.pdf')
+    plot_cs_basis(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='MtMarcy90SparsityBases_v6_ratio.pdf')
+    plot_cs_basis(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='Deerpark90SparsityBases_v6_ratio.pdf')
+    plot_cs_basis(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction with 90% Sparsity of Columbus Circle', loclegend='upper right', figname='ColCirc90SparsityBases_v6_ratio.pdf')
+    plot_cs_basis(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction with 90% Sparsity of Park Slope', loclegend='upper right', figname='Parkslope90SparsityBases_v6_ratio.pdf')
     
     # Bar Graph
     
-    plotbar_cs_basis(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='D:/Downloads/MtMarcy90SparsityBases_Bar_v7_ratio.pdf')
-    plotbar_cs_basis(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='D:/Downloads/Deerpark90SparsityBases_Bar_v7_ratio.pdf')
-    plotbar_cs_basis(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction With 90% Sparsity of Columbus Circle', loclegend='upper right', figname='D:/Downloads/ColCirc90SparsityBases_Bar_v7_ratio.pdf')
-    plotbar_cs_basis(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction With 90% Sparsity of Park Slope', loclegend='upper right', figname='D:/Downloads/Parkslope90SparsityBases_Bar_v7_ratio.pdf')
+    plotbar_cs_basis(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='MtMarcy90SparsityBases_Bar_v7_ratio.pdf')
+    plotbar_cs_basis(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='Deerpark90SparsityBases_Bar_v7_ratio.pdf')
+    plotbar_cs_basis(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction With 90% Sparsity of Columbus Circle', loclegend='upper right', figname='ColCirc90SparsityBases_Bar_v7_ratio.pdf')
+    plotbar_cs_basis(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction With 90% Sparsity of Park Slope', loclegend='upper right', figname='Parkslope90SparsityBases_Bar_v7_ratio.pdf')
     
     
     
     ''' ----------------------------------- '''
     # ADDING 10% CS RATIO: --------------------------------------------------------------------------------------
     '''
-    plot_cs_sparsity_10csratio(MtMarcyMAE_cs10, MtMarcyMAE_cs25, MtMarcyMAE_cs50, MtMarcyMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Mt. Marcy', bbox=(1,1), figname='D:/Downloads/MtMarcyDb2CS_updated_v1_ratio.pdf', ylim=(0, 85))
-    plot_cs_sparsity_10csratio(DeerparkMAE_cs10, DeerparkMAE_cs25, DeerparkMAE_cs50, DeerparkMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Deerpark', bbox=(1,1), figname='D:/Downloads/DeerparkDb2CS_updated_v1_ratio.pdf', ylim=(0, 130))
-    plot_cs_sparsity_10csratio(ColCircMAE_cs10, ColCircMAE_cs25, ColCircMAE_cs50, ColCircMAE_cs75, title='Reconstruction Using DCT of Columbus Circle', bbox=(1,1), figname='D:/Downloads/ColCircDCTCS_updated_v1_ratio.pdf', ylim=(0, 95))
-    plot_cs_sparsity_10csratio(ParkslopeMAE_cs10, ParkslopeMAE_cs25, ParkslopeMAE_cs50, ParkslopeMAE_cs75, title='Reconstruction Using DCT of Park Slope', bbox=(1,1), figname='D:/Downloads/ParkslopeDCTCS_updated_v1_ratio.pdf', ylim=(0, 45))
+    plot_cs_sparsity_10csratio(MtMarcyMAE_cs10, MtMarcyMAE_cs25, MtMarcyMAE_cs50, MtMarcyMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Mt. Marcy', bbox=(1,1), figname='MtMarcyDb2CS_updated_v1_ratio.pdf', ylim=(0, 85))
+    plot_cs_sparsity_10csratio(DeerparkMAE_cs10, DeerparkMAE_cs25, DeerparkMAE_cs50, DeerparkMAE_cs75, title='Reconstruction With Daubechies-2 DWT of Deerpark', bbox=(1,1), figname='DeerparkDb2CS_updated_v1_ratio.pdf', ylim=(0, 130))
+    plot_cs_sparsity_10csratio(ColCircMAE_cs10, ColCircMAE_cs25, ColCircMAE_cs50, ColCircMAE_cs75, title='Reconstruction Using DCT of Columbus Circle', bbox=(1,1), figname='ColCircDCTCS_updated_v1_ratio.pdf', ylim=(0, 95))
+    plot_cs_sparsity_10csratio(ParkslopeMAE_cs10, ParkslopeMAE_cs25, ParkslopeMAE_cs50, ParkslopeMAE_cs75, title='Reconstruction Using DCT of Park Slope', bbox=(1,1), figname='ParkslopeDCTCS_updated_v1_ratio.pdf', ylim=(0, 45))
     
-    plot_cs_basis_10csratio(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='D:/Downloads/MtMarcy90SparsityBases_updated_v1_ratio.pdf')
-    plot_cs_basis_10csratio(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='D:/Downloads/Deerpark90SparsityBases_updated_v1_ratio.pdf')
-    plot_cs_basis_10csratio(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction with 90% Sparsity of Columbus Circle', loclegend='upper right', figname='D:/Downloads/ColCirc90SparsityBases_updated_v1_ratio.pdf')
-    plot_cs_basis_10csratio(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction with 90% Sparsity of Park Slope', loclegend='upper right', figname='D:/Downloads/Parkslope90SparsityBases_updated_v1_ratio.pdf')
+    plot_cs_basis_10csratio(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='MtMarcy90SparsityBases_updated_v1_ratio.pdf')
+    plot_cs_basis_10csratio(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='Deerpark90SparsityBases_updated_v1_ratio.pdf')
+    plot_cs_basis_10csratio(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction with 90% Sparsity of Columbus Circle', loclegend='upper right', figname='ColCirc90SparsityBases_updated_v1_ratio.pdf')
+    plot_cs_basis_10csratio(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction with 90% Sparsity of Park Slope', loclegend='upper right', figname='Parkslope90SparsityBases_updated_v1_ratio.pdf')
     
-    plot_basis_sparsity_10csratio(MtMarcyMAE_dct, MtMarcyMAE_haar, MtMarcyMAE_db2, MtMarcyMAE_coif1, title='Reconstruction With 10% Compression of Mt. Marcy', bbox=(0,0.90+0.02), figname='D:/Downloads/MtMarcy10CSBases_updated_v1.pdf')
-    plot_basis_sparsity_10csratio(DeerparkMAE_dct, DeerparkMAE_haar, DeerparkMAE_db2, DeerparkMAE_coif1, title='Reconstruction With 10% Compression of Deerpark', bbox=(0.65,1), figname='D:/Downloads/Deerpark10CSBases_updated_v1.pdf')
-    plot_basis_sparsity_10csratio(ColCircMAE_dct, ColCircMAE_haar, ColCircMAE_db2, ColCircMAE_coif1, title='Reconstruction With 10% Compression of Columbus Circle', loclegend='lower left', figname='D:/Downloads/ColCirc10CSBases_updated_v1.pdf')
-    plot_basis_sparsity_10csratio(ParkslopeMAE_dct, ParkslopeMAE_haar, ParkslopeMAE_db2, ParkslopeMAE_coif1, title='Reconstruction With 10% Compression of Park Slope', loclegend='lower left', figname='D:/Downloads/Parkslope10CSBases_updated_v1.pdf')
+    plot_basis_sparsity_10csratio(MtMarcyMAE_dct, MtMarcyMAE_haar, MtMarcyMAE_db2, MtMarcyMAE_coif1, title='Reconstruction With 10% Compression of Mt. Marcy', bbox=(0,0.90+0.02), figname='MtMarcy10CSBases_updated_v1.pdf')
+    plot_basis_sparsity_10csratio(DeerparkMAE_dct, DeerparkMAE_haar, DeerparkMAE_db2, DeerparkMAE_coif1, title='Reconstruction With 10% Compression of Deerpark', bbox=(0.65,1), figname='Deerpark10CSBases_updated_v1.pdf')
+    plot_basis_sparsity_10csratio(ColCircMAE_dct, ColCircMAE_haar, ColCircMAE_db2, ColCircMAE_coif1, title='Reconstruction With 10% Compression of Columbus Circle', loclegend='lower left', figname='ColCirc10CSBases_updated_v1.pdf')
+    plot_basis_sparsity_10csratio(ParkslopeMAE_dct, ParkslopeMAE_haar, ParkslopeMAE_db2, ParkslopeMAE_coif1, title='Reconstruction With 10% Compression of Park Slope', loclegend='lower left', figname='Parkslope10CSBases_updated_v1.pdf')
    
-    plotbar_cs_basis_10csratio(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='D:/Downloads/MtMarcy90SparsityBases_Bar_updated_v1_ratio.pdf')
-    plotbar_cs_basis_10csratio(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='D:/Downloads/Deerpark90SparsityBases_Bar_updated_v1_ratio.pdf')
-    plotbar_cs_basis_10csratio(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction With 90% Sparsity of Columbus Circle', loclegend='upper right',  ylim=(0,100), figname='D:/Downloads/ColCirc90SparsityBases_Bar_updated_v1_ratio.pdf')
-    plotbar_cs_basis_10csratio(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction With 90% Sparsity of Park Slope', loclegend='upper right',  ylim=(0,50), figname='D:/Downloads/Parkslope90SparsityBases_Bar_updated_v1_ratio.pdf')
+    plotbar_cs_basis_10csratio(MtMarcyMAE_dct_s, MtMarcyMAE_haar_s, MtMarcyMAE_db2_s, MtMarcyMAE_coif1_s, title='Reconstruction With 90% Sparsity of Mt. Marcy', loclegend='upper right', figname='MtMarcy90SparsityBases_Bar_updated_v1_ratio.pdf')
+    plotbar_cs_basis_10csratio(DeerparkMAE_dct_s, DeerparkMAE_haar_s, DeerparkMAE_db2_s, DeerparkMAE_coif1_s, title='Reconstruction With 90% Sparsity of Deerpark', loclegend='upper right', figname='Deerpark90SparsityBases_Bar_updated_v1_ratio.pdf')
+    plotbar_cs_basis_10csratio(ColCircMAE_dct_s, ColCircMAE_haar_s, ColCircMAE_db2_s, ColCircMAE_coif1_s, title='Reconstruction With 90% Sparsity of Columbus Circle', loclegend='upper right',  ylim=(0,100), figname='ColCirc90SparsityBases_Bar_updated_v1_ratio.pdf')
+    plotbar_cs_basis_10csratio(ParkslopeMAE_dct_s, ParkslopeMAE_haar_s, ParkslopeMAE_db2_s, ParkslopeMAE_coif1_s, title='Reconstruction With 90% Sparsity of Park Slope', loclegend='upper right',  ylim=(0,50), figname='Parkslope90SparsityBases_Bar_updated_v1_ratio.pdf')
     '''
