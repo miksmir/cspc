@@ -18,22 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import os
 from CSPointCloud import OUTPUT_PATH_PLOTS
-
-
-
-
-
-
-
-
-
-
-# Custom colormap
-c_dict = {
-    'red':   [(0.0, 0.0, 0.0), (0.33, 0.0, 0.0), (0.66, 1.0, 1.0), (1.0, 1.0, 1.0)],
-    'green': [(0.0, 0.0, 0.0), (0.33, 1.0, 1.0), (0.66, 1.0, 1.0), (1.0, 0.0, 0.0)],
-    'blue':  [(0.0, 1.0, 1.0), (0.33, 1.0, 1.0), (0.66, 0.0, 0.0), (1.0, 0.0, 0.0)]
-}
+from CSPointCloud import c_dict
 
 
 

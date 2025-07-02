@@ -27,33 +27,33 @@ def runCSPCdwt(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_va
 
     Parameters
     ----------
-    inputpath: str
+    inputpath : str
         The path + file-name to .las file that is being reconstructed.
     path: str 
         Path to directory that will contain generated outputs files.
-   lasfile: str
+   lasfile : str
        Name of output files of reconstruction that will be generated. 
        ***MUST end in .las extension!***
        (i.e. lasfile="reconstructedpc.las")
-   pcname: str
+   pcname : str
        Name of point cloud for plot and metadata labeling purposes
-   sparsity_val: int
+   sparsity_val : int
        Percentage of signal that will be sparse (have zero values). 
        (Example: If sparsity_val = 10, 10% of signal will have zero values).
-   cs_ratio: float
+   cs_ratio : float
        Compression ratio as a decimal 
        cs_ratio = (amount of measurements / length of original signal) 
        (Example: 0.25 compression means 75% of points are removed.)
-   measurement_type: str
+   measurement_type : str
        Type of measurement matrix (i.e. gaussian, gaussian_normal, 
        bernoulli_standard, bernoulli_symmetric, gaussian2).
-   wvlt: str
+   wvlt : str
        Type of discrete wavelet used for DWT reconstruction in pywavelets 
        (i.e. haar, db2, coif1, ...).
-   ds_type: str
+   ds_type : str
        Type of downsampling that was done on input point cloud if you did
        preprocessing beforehand (i.e. uniform, voxel, none).
-   parallel: bool, optional
+   parallel : bool, optional
        Boolean that if set to False, disables CPU parallel processing.
     
     Notes
@@ -136,30 +136,30 @@ def runCSPCdct(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_va
 
     Parameters
     ----------
-    inputpath: str
+    inputpath : str
         The path + file-name to .las file that is being reconstructed.
-    path: str 
+    path : str 
         Path to directory that will contain generated outputs files.
-   lasfile: str
+   lasfile : str
        Name of output files of reconstruction that will be generated. 
        ***MUST end in .las extension!***
        (i.e. lasfile="reconstructedpc.las")
-   pcname: str
+   pcname : str
        Name of point cloud for plot and metadata labeling purposes
-   sparsity_val: int
+   sparsity_val : int
        Percentage of signal that will be sparse (have zero values). 
        (Example: If sparsity_val = 10, 10% of signal will have zero values).
-   cs_ratio: float
+   cs_ratio : float
        Compression ratio as a decimal. 
        cs_ratio = (amount of measurements / length of original signal) 
        (Example: 0.25 compression means 75% of points are removed.)
-   measurement_type: str
+   measurement_type : str
        Type of measurement matrix (i.e. gaussian, gaussian_normal, 
        bernoulli_standard, bernoulli_symmetric, gaussian2).
-   ds_type: str
+   ds_type : str
        Type of downsampling that was done on input point cloud if you did
        preprocessing beforehand (i.e. uniform, voxel, none).
-   parallel: bool, optional
+   parallel : bool, optional
        Boolean that if set to False, disables CPU parallel processing.
     
     Notes
