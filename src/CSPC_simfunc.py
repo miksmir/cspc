@@ -7,29 +7,67 @@ Created on Thu Apr  3 11:29:51 2025
 
 from CSPointCloud import CSPCdwt, CSPCdct, CSPCdft
 import CSPointCloud as CSPC
+from config import INPUT_PATH_LAS
 
-def runCSPCdwt(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_val: int, cs_ratio: float, measurement_type: str, wvlt: str, ds_type: str, parallel = True):
-    '''
-    This function runs the script for CSPC DWT reconstruction.
+def runCSPCdwt(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_val: int, cs_ratio: float, measurement_type: str, wvlt: str, ds_type: str, parallel = True) -> None:    
+    """
+    Runs the script for CSPC DWT reconstruction of specified point cloud.
     
-    Parameters:
-        - inputpath: Path + Filename to .las file that is being reconstructed
-        - path: Path to directory that will generate outputs files of reconstruction
-        - lasfile: Name of output files of reconstruction that will be generated. ***MUST end in .las extension!***
-        - pcname: Name of point cloud for plot and metadata labeling purposes
-        - sparsity_val: Percentage of signal that will be sparse (have zero values). Example: If sparsity_val = 10, 10% of signal will have zero values.
-        - cs_ratio: Compression ratio percentage. Example: 25% compression means 75% of points are removed.
-        - measurement_type: Type of measurement matrix. (gaussian, gaussian_normal, bernoulli_standard, bernoulli_symmetric, gaussian2)
-        - wvlt: Type of discrete wavelet used for DWT reconstruction in pywavelets (haar, db2, coif1, etc)
-        - ds_type: Type of downsampling that was done on input signal. (uniform, voxel)
-        
-    '''
+    This function generates the following in the directory specified by `path`:
+        - Reconstructed point cloud's coordinates in LAS file format.
+        - Reconstructed point cloud's coordinates in CSV file format 
+          or NPY file format.
+        - Reconstruction info exported as TXT file 
+          (i.e. errors, solver time, CS ratio, PC name). 
+        - Two 3D plots side-by-side of original and reconstructed point clouds 
+          respectively in PDF file format.
+    This function is run by default via CPU parallel processing 
+    (using the Ray framework). To disable, set 'parallel' to 'False'.
+
+    Parameters
+    ----------
+    inputpath: str
+        The path + file-name to .las file that is being reconstructed.
+    path: str 
+        Path to directory that will contain generated outputs files.
+   lasfile: str
+       Name of output files of reconstruction that will be generated. 
+       ***MUST end in .las extension!***
+       (i.e. lasfile="reconstructedpc.las")
+   pcname: str
+       Name of point cloud for plot and metadata labeling purposes
+   sparsity_val: int
+       Percentage of signal that will be sparse (have zero values). 
+       (Example: If sparsity_val = 10, 10% of signal will have zero values).
+   cs_ratio: float
+       Compression ratio as a decimal 
+       cs_ratio = (amount of measurements / length of original signal) 
+       (Example: 0.25 compression means 75% of points are removed.)
+   measurement_type: str
+       Type of measurement matrix (i.e. gaussian, gaussian_normal, 
+       bernoulli_standard, bernoulli_symmetric, gaussian2).
+   wvlt: str
+       Type of discrete wavelet used for DWT reconstruction in pywavelets 
+       (i.e. haar, db2, coif1, ...).
+   ds_type: str
+       Type of downsampling that was done on input point cloud if you did
+       preprocessing beforehand (i.e. uniform, voxel, none).
+   parallel: bool, optional
+       Boolean that if set to False, disables CPU parallel processing.
     
-    ''' NYCOpenData DWT Example '''
+    Notes
+    -----
+    #TODO
+    
+    Examples
+    --------
+    #TODO
+    """
     
     # Instantiate CSPointCloud object
     nycpc = CSPCdwt()
     
+    # Sets up proper parameters for generated outputs
     outputpath, plot_title, metadata = CSPC.setupParameters(path=path, lasfile=lasfile, pcname=pcname, num_points=CSPC.pclength(inputpath), cs_ratio=cs_ratio, measurement_type=measurement_type, basis='DWT', wvlt=wvlt, ds_type=ds_type, sparsity=sparsity_val)
     
     # ---------------------
@@ -80,21 +118,57 @@ def runCSPCdwt(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_va
     
 
 def runCSPCdct(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_val: int, cs_ratio: float, measurement_type: str, ds_type: str, parallel = True):
-    '''
-    This function runs the script for CSPC DCT reconstruction.
+    """
+    Runs the script for CSPC DCT reconstruction of specified point cloud.
     
-    Parameters:
-        - inputpath: Path + Filename to .las file that is being reconstructed
-        - path: Path to directory that will generate outputs files of reconstruction
-        - lasfile: Name of output files of reconstruction that will be generated. ***MUST end in .las extension!***
-        - pcname: Name of point cloud for plot and metadata labeling purposes
-        - sparsity_val: Percentage of signal that will be sparse (have zero values). Example: If sparsity_val = 10, 10% of signal will have zero values.
-        - cs_ratio: Compression ratio percentage. Example: 25% compression means 75% of points are removed.
-        - measurement_type: Type of measurement matrix. (gaussian, gaussian_normal, bernoulli_standard, bernoulli_symmetric, gaussian2)
-        - ds_type: Type of downsampling that was done on input signal. (uniform, voxel)
-        
-    '''
-    ''' NYCOpenData DCT Example '''
+    Same as runCSPCdwt but using Discrete Cosine Transform instead.
+    This function generates the following in the directory specified by `path`:
+        - Reconstructed point cloud's coordinates in LAS file format.
+        - Reconstructed point cloud's coordinates in CSV file format 
+          or NPY file format.
+        - Reconstruction info exported as TXT file 
+          (i.e. errors, solver time, CS ratio, PC name). 
+        - Two 3D plots side-by-side of original and reconstructed point clouds 
+          respectively in PDF file format.
+    This function is run by default via CPU parallel processing 
+    (using the Ray framework). To disable, set 'parallel' to 'False'.
+
+    Parameters
+    ----------
+    inputpath: str
+        The path + file-name to .las file that is being reconstructed.
+    path: str 
+        Path to directory that will contain generated outputs files.
+   lasfile: str
+       Name of output files of reconstruction that will be generated. 
+       ***MUST end in .las extension!***
+       (i.e. lasfile="reconstructedpc.las")
+   pcname: str
+       Name of point cloud for plot and metadata labeling purposes
+   sparsity_val: int
+       Percentage of signal that will be sparse (have zero values). 
+       (Example: If sparsity_val = 10, 10% of signal will have zero values).
+   cs_ratio: float
+       Compression ratio as a decimal. 
+       cs_ratio = (amount of measurements / length of original signal) 
+       (Example: 0.25 compression means 75% of points are removed.)
+   measurement_type: str
+       Type of measurement matrix (i.e. gaussian, gaussian_normal, 
+       bernoulli_standard, bernoulli_symmetric, gaussian2).
+   ds_type: str
+       Type of downsampling that was done on input point cloud if you did
+       preprocessing beforehand (i.e. uniform, voxel, none).
+   parallel: bool, optional
+       Boolean that if set to False, disables CPU parallel processing.
+    
+    Notes
+    -----
+    #TODO
+    
+    Examples
+    --------
+    #TODO
+    """
     
     # Instantiate CSPointCloud object
     nycpc = CSPCdct()
@@ -148,21 +222,9 @@ def runCSPCdct(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_va
     
 
 def runCSPCdct2(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_val: int, cs_ratio: float, measurement_type: str, ds_type: str):
-    '''
-    This function runs the script for CSPC DCT reconstruction.
-    
-    Parameters:
-        - inputpath: Path + Filename to .las file that is being reconstructed
-        - path: Path to directory that will generate outputs files of reconstruction
-        - lasfile: Name of output files of reconstruction that will be generated. ***MUST end in .las extension!***
-        - pcname: Name of point cloud for plot and metadata labeling purposes
-        - sparsity_val: Percentage of signal that will be sparse (have zero values). Example: If sparsity_val = 10, 10% of signal will have zero values.
-        - cs_ratio: Compression ratio percentage. Example: 25% compression means 75% of points are removed.
-        - measurement_type: Type of measurement matrix. (gaussian, gaussian_normal, bernoulli_standard, bernoulli_symmetric, gaussian2)
-        - ds_type: Type of downsampling that was done on input signal. (uniform, voxel)
-        
-    '''
-    ''' NYCOpenData DCT Example '''
+    """
+    DEPRECATED FUNCTION - TO BE REMOVED LATER - IGNORE --------------------
+    """
     
     # Instantiate CSPointCloud object
     nycpc = CSPCdct()
@@ -212,22 +274,10 @@ def runCSPCdct2(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_v
     nycpc.exportCoords(outputfileoriginal=inputpath, outputfilereconstructed=outputpath, outputformat='npy', exportchoice='both')
 
 def runCSPCdft(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_val: int, cs_ratio: float, measurement_type: str, ds_type: str):
-    '''
-    This function runs the script for CSPC DFT reconstruction.
-    
-    Parameters:
-        - inputpath: Path + Filename to .las file that is being reconstructed
-        - path: Path to directory that will generate outputs files of reconstruction
-        - lasfile: Name of output files of reconstruction that will be generated. ***MUST end in .las extension!***
-        - pcname: Name of point cloud for plot and metadata labeling purposes
-        - sparsity_val: Percentage of signal that will be sparse (have zero values). Example: If sparsity_val = 10, 10% of signal will have zero values.
-        - cs_ratio: Compression ratio percentage. Example: 25% compression means 75% of points are removed.
-        - measurement_type: Type of measurement matrix. (gaussian, gaussian_normal, bernoulli_standard, bernoulli_symmetric, gaussian2)
-        - ds_type: Type of downsampling that was done on input signal. (uniform, voxel)
-        
-    '''
-    ''' NYCOpenData DFT Example '''
-    
+    """
+    DEPRECATED FUNCTION - TO BE REMOVED - IGNORE --------------------------
+    """
+
     # Instantiate CSPointCloud object
     nycpc = CSPCdft()
     
