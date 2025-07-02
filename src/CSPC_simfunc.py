@@ -7,7 +7,8 @@ Created on Thu Apr  3 11:29:51 2025
 
 from CSPointCloud import CSPCdwt, CSPCdct, CSPCdft
 import CSPointCloud as CSPC
-from config import INPUT_PATH_LAS
+from CSPointCloud import INPUT_PATH_LAS, OUTPUT_PATH_LAS
+
 
 def runCSPCdwt(inputpath: str, path: str, lasfile: str, pcname: str, sparsity_val: int, cs_ratio: float, measurement_type: str, wvlt: str, ds_type: str, parallel = True) -> None:    
     """

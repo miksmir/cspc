@@ -17,7 +17,7 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import os
-from config import OUTPUT_PATH_PLOTS
+from CSPointCloud import OUTPUT_PATH_PLOTS
 
 
 

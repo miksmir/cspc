@@ -16,7 +16,7 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import os
-from config import OUTPUT_PATH_PLOTS
+from CSPointCloud import OUTPUT_PATH_PLOTS
 
 # Notes: Coif1 seems to work slightly better for Mt Marcy
 # But Db1 seems to work slightly better for Columbus Circle
