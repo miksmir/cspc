@@ -1,7 +1,7 @@
 import os
 import CSPointCloud as CSPC
 from CSPC_simfunc import runCSPCdwt, runCSPCdct, runCSPCdft, runCSPCdct2
-from CSPointCloud import INPUT_PATH_LAS, OUTPUT_PATH_LAS
+from CSPointCloud import INPUT_PATH_PCLAS, OUTPUT_PATH_PCLAS
 
 if __name__ == "__main__":
     
@@ -16,6 +16,6 @@ if __name__ == "__main__":
     
     for cs_ratio in arr_cs_ratios:
         for sparsity_val in arr_sparsity_val:
-            runCSPCdwt(inputpath = os.path.join(INPUT_PATH_LAS, 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.las'), path=OUTPUT_PATH_LAS, lasfile = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud.las', pcname = 'Park Slope', cs_ratio=cs_ratio, sparsity_val=sparsity_val, measurement_type='gaussian', wvlt = 'db2', ds_type='uniform', parallel=True)
-            runCSPCdct(inputpath = os.path.join(INPUT_PATH_LAS, 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.las'), path=OUTPUT_PATH_LAS, lasfile = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud.las', pcname = 'Park Slope', cs_ratio=cs_ratio, sparsity_val=sparsity_val, measurement_type='gaussian', ds_type='uniform', parallel=True)
+            runCSPCdwt(inputpc = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.las', outpath=OUTPUT_PATH_PCLAS, outputname = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud.las', pcname = 'Park Slope', cs_ratio=cs_ratio, sparsity_val=sparsity_val, measurement_type='gaussian', wvlt = 'db2', ds_type='uniform', parallel=True)
+            runCSPCdct(inputpc = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud_5000ds_uniform.las', outpath=OUTPUT_PATH_PCLAS, outputname = 'ParkSlope4thAveCarrollSt_987185_Buildings_LidarClassifiedPointCloud.las', pcname = 'Park Slope', cs_ratio=cs_ratio, sparsity_val=sparsity_val, measurement_type='gaussian', ds_type='uniform', parallel=True)
    
