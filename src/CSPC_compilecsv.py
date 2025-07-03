@@ -7,33 +7,36 @@ Created on Sat Apr 19 19:22:55 2025
 
 import os
 import csv     
+from CSPointCloud import OUTPUT_PATH_PCLAS, OUTPUT_PATH_COMPILED
 
-def compile_csv_results(dir_path: str = 'C:\\Users\\misha\\Documents\\Thesis_CS\\Point_Cloud_Outputs\\reconstruction\\NYCOpenData\\thresholding\\ColumbusCircle\\points5000', out_csv: str= 'C:\\Users\\misha\\Downloads\out.csv') -> list[dict]:
+def compile_csv_results(dir_path: str = OUTPUT_PATH_PCLAS, out_csv: str = 'out.csv') -> list[dict]:
     """
     Compiles all information from generated output TXT files into one CSV file.
     
     All of the parameter and output information from the TXT files are parsed
     and compiled as one single CSV table to make the reconstruction results
     more easily extractable for plotting or other data analysis purposes 
-    (especially when performing a large amount of point cloud reconstructions.)
+    (especially when performing a large amount of point cloud reconstructions).
     
     Parameters
     ----------
-    dir_path : str
-        The path to the directory containing the output TXT files.
-    out_csv : str 
-        Path to directory that will contain the output CSV file.
+    dir_path : str, optional
+        The path to the directory containing the TXT files to be parsed.
+        (Path is specified by JSON file under `OUTPUT_PATH_PCLAS` by default).
+    out_csv : str, optional 
+        The name of the output CSV file ('out.csv' by default).
     
     Returns
     -------
-    compiled_data : List[Dict]
+    compiled_data : list[dict]
         A list of dictionaries where each list item is a parsed output 
         TXT file. Each dictionary item is a key:value pair that describes a
         parsed value from the TXT file.
     
     Notes
     -----
-    #TODO
+    The output CSV file is stored in the directory specified by the JSON
+    file under `OUTPUT_PATH_COMPILED`.
     
     Examples
     --------
@@ -84,7 +87,7 @@ def compile_csv_results(dir_path: str = 'C:\\Users\\misha\\Documents\\Thesis_CS\
                 compiled_data.append(metadata)
         
         # Write to CSV
-        with open(out_csv, 'w', newline='') as csvfile:
+        with open(os.path.join(OUTPUT_PATH_COMPILED, out_csv), 'w', newline='') as csvfile:
             # Map dictionary onto output rows
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()

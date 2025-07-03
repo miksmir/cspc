@@ -16,7 +16,8 @@ import point_cloud_utils as pcu
 #import CSPCconfig # Project-specific config variables
 
 """ ------------------------- Global Variables --------------------------"""
-from CSPCconfig import INPUT_PATH_LAS, OUTPUT_PATH_LAS, OUTPUT_PATH_PLOTS
+from CSPCconfig import INPUT_PATH_PCLAS, OUTPUT_PATH_PCLAS, OUTPUT_PATH_PLOTS
+from CSPCconfig import OUTPUT_PATH_COMPILED
 
 # Custom colormap
 c_dict = {
