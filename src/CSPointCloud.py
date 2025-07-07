@@ -92,7 +92,7 @@ class CSPCdwt:
         # Note: Hit "r" to reset PC view in Open3D
         return 0
     
-    def writeLas(self, path = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_original.las', las_point_format = 3, las_version = "1.2"):
+    def writeLas(self, path = os.path.join(INPUT_PATH_PCLAS, 'originalpc.las'), las_point_format = 3, las_version = "1.2"):
         """ "This method stores the CSPCdwt object's coordinates' as a .las file. """
         header = laspy.LasHeader(version=las_version, point_format=las_point_format)
         las = laspy.LasData(header)
@@ -101,7 +101,7 @@ class CSPCdwt:
         las.z = self.z
         las.write(os.path.normpath(path))
         
-    def writeReconstructedLas(self, path = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_reconstructed.las', las_point_format = 3, las_version = "1.2"):
+    def writeReconstructedLas(self, path = os.path.join(OUTPUT_PATH_PCLAS, 'reconstructedpc.las'), las_point_format = 3, las_version = "1.2"):
         """ "This method stores the CSPCdwt object's reconstructed coordinates' as a .las file. """
         header = laspy.LasHeader(version=las_version, point_format=las_point_format)
         las = laspy.LasData(header)
@@ -414,7 +414,7 @@ class CSPCdwt:
         
         return errors
 
-    def plotPCs(self, main_title, e_angle=230, a_angle=-240, outputfile='D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_reconstructed.las', fileformat='pdf', heightshown=True, pointsize=5, colormap='cool'):
+    def plotPCs(self, main_title, e_angle=230, a_angle=-240, outputfile=os.path.join(OUTPUT_PATH_PCLAS, 'reconstructedpc.las'), fileformat='pdf', heightshown=True, pointsize=5, colormap='cool'):
         """ Plots the original and reconstructed point clouds and saves the plot as .pdf, .jpg, .png, or .svg. """
         """ Expects the output file to be the original output .las file path. """
         
@@ -475,7 +475,7 @@ class CSPCdwt:
         plt.savefig(outputpath)
         plt.show()
 
-    def exportCoords(self, outputfileoriginal='D:\Documents\Thesis_CS\Point_Cloud_Inputs\original.las', outputfilereconstructed='D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_reconstructedcoords.las', outputformat='csv', exportchoice='both'):
+    def exportCoords(self, outputfileoriginal=os.path.join(INPUT_PATH_PCLAS, 'originalpc.las'), outputfilereconstructed=os.path.join(OUTPUT_PATH_PCLAS, 'reconstructedpc.las'), outputformat='csv', exportchoice='both'):
         """ This method saves and exports the coordinates of both the original point cloud and the reconstructed point cloud
         into .csv or .npy file formats. """
         
@@ -602,7 +602,7 @@ class CSPCdct:
         # Note: Hit "r" to reset PC view in Open3D
         return 0
     
-    def writeLas(self, path = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_original.las', las_point_format = 3, las_version = "1.2"):
+    def writeLas(self, path = os.path.join(INPUT_PATH_PCLAS, 'originalpc.las'), las_point_format = 3, las_version = "1.2"):
         """ "This method stores the CSPCdwt object's coordinates' as a .las file. """
         header = laspy.LasHeader(version=las_version, point_format=las_point_format)
         las = laspy.LasData(header)
@@ -611,7 +611,7 @@ class CSPCdct:
         las.z = self.z
         las.write(os.path.normpath(path))
         
-    def writeReconstructedLas(self, path = 'D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_reconstructed.las', las_point_format = 3, las_version = "1.2"):
+    def writeReconstructedLas(self, path = os.path.join(OUTPUT_PATH_PCLAS, 'reconstructedpc.las'), las_point_format = 3, las_version = "1.2"):
         """ "This method stores the CSPCdwt object's reconstructed coordinates' as a .las file. """
         header = laspy.LasHeader(version=las_version, point_format=las_point_format)
         las = laspy.LasData(header)
@@ -849,7 +849,7 @@ class CSPCdct:
         
         return errors
 
-    def plotPCs(self, main_title, e_angle=230, a_angle=-240, outputfile='D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_reconstructed.las', fileformat='pdf', heightshown=True, pointsize=5, colormap='cool'):
+    def plotPCs(self, main_title, e_angle=230, a_angle=-240, outputfile=os.path.join(OUTPUT_PATH_PCLAS, 'reconstructedpc.las'), fileformat='pdf', heightshown=True, pointsize=5, colormap='cool'):
         """ Plots the original and reconstructed point clouds and saves the plot as .pdf, .jpg, .png, or .svg. """
         """ Expects the output file to be the original output .las file path. """
         
@@ -910,7 +910,7 @@ class CSPCdct:
         plt.savefig(outputpath)
         plt.show()
 
-    def exportCoords(self, outputfileoriginal='D:\Documents\Thesis_CS\Point_Cloud_Inputs\original.las', outputfilereconstructed='D:/Documents/Thesis_CS/Point_Cloud_Outputs/output_reconstructedcoords.las', outputformat='csv', exportchoice='both'):
+    def exportCoords(self, outputfileoriginal=os.path.join(INPUT_PATH_PCLAS, 'originalpc.las'), outputfilereconstructed=os.path.join(OUTPUT_PATH_PCLAS, 'reconstructedpc.las'), outputformat='csv', exportchoice='both'):
         """ This method saves and exports the coordinates of both the original point cloud and the reconstructed point cloud
         into .csv or .npy file formats. """
         
