@@ -282,7 +282,7 @@ class CSPCdwt:
         print(f"Solver time: {solve_time} [s]")
         return solve_time
 
-    def reconstructCVXPY_ray(self, measured_x, coeffs_template_x, measured_y, coeffs_template_y, measured_z, coeffs_template_z, phi, wavelet):
+    def reconstructCVXPY_ray(self, measured_x, coeffs_template_x, measured_y, coeffs_template_y, measured_z, coeffs_template_z, phi, wavelet, n_cpus=2):
             """ This method performs L1 minimization using the CVXPY library. """
             """ In order for each of the 3 dimensions to be reconstructed
             independently, the problem is solved 3 times with 3 different parameters."""
@@ -293,7 +293,7 @@ class CSPCdwt:
     
             start_time = time()
             
-            @ray.remote(num_cpus=2)
+            @ray.remote(num_cpus=n_cpus)
             def reconstruct(measured_coord, phi):
                 # Amount of coefficients to reconstruct:
                 n = phi.shape[1]
@@ -334,6 +334,10 @@ class CSPCdwt:
             self.z_r = CSPCdwt.transformIDWT1D(result_z_sparse_r, coeffs_template_z, wavelet) #TODO
             
             print(f"Solver time: {solve_time} [s]")
+            
+            ray.shutdown()
+            print("ray.shutdown() called.")
+            
             return solve_time
 
     def reconstructCosamp(self, measured_x, coeffs_template_x, measured_y, coeffs_template_y, measured_z, coeffs_template_z, phi, wavelet, sx, sy, sz, tol=1e-10, max_iter=1000, norm='ortho'):
@@ -746,7 +750,7 @@ class CSPCdct:
         print(f"Solver time: {solve_time} [s]")
         return solve_time
 
-    def reconstructCVXPY_ray(self, measured_x, measured_y, measured_z, phi, norm='ortho'):
+    def reconstructCVXPY_ray(self, measured_x, measured_y, measured_z, phi, norm='ortho', n_cpus=2):
             """ This method performs L1 minimization using the CVXPY library. """
             """ In order for each of the 3 dimensions to be reconstructed
             independently, the problem is solved 3 times with 3 different parameters."""
@@ -757,7 +761,7 @@ class CSPCdct:
     
             start_time = time()
             
-            @ray.remote(num_cpus=2)
+            @ray.remote(num_cpus=n_cpus)
             def reconstruct(measured_coord, phi):
                 # Amount of coefficients to reconstruct:
                 n = phi.shape[1]
@@ -799,6 +803,10 @@ class CSPCdct:
             
             
             print(f"Solver time: {solve_time} [s]")
+            
+            ray.shutdown()
+            print("ray.shutdown() called.")
+            
             return solve_time
 
     def reconstructCosamp(): #TODO
