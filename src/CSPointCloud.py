@@ -1380,7 +1380,7 @@ def setupParameters(path, lasfile, num_points, cs_ratio, measurement_type, pcnam
     
     outputpath = specifyOutputPath(path, lasfilename, f'{sparsity}thresholded_{basis_file_str}_{cs_ratio_str}{measurement_type_str}_of_{num_points}{ds_file_str}.las')  
     plot_title = f"{cs_percentage_str}% Compression of {num_points}-Point {pcname} PC Using {basis_txt_str}"
-    metadata = f"{cs_percentage_str}% CS Ratio | {num_points} points {ds_str} | NYCOpenData {pcname} PC | {measurement_type_str} Measurement | {basis_txt_str} | {sparsity}% Sparse | CVXPY CLARABEL Reconstruction"
+    metadata = f"{cs_percentage_str}% CS Ratio | {num_points} points {ds_str} | {pcname} PC | {measurement_type_str} Measurement | {basis_txt_str} | {sparsity}% Sparse | CVXPY CLARABEL Reconstruction"
 
     return outputpath, plot_title, metadata
 
@@ -1416,7 +1416,7 @@ def setupSimulationParameters(path, lasfile, num_points, cs_ratio, measurement_t
     
     outputpath = specifyOutputPath(path, lasfilename, f'{basis_file_str}_{cs_ratio_str}{measurement_type_str}_of_{num_points}{ds_file_str}_{i}simulations.txt')  
     plot_title = f"{cs_percentage_str}% Compression of {num_points}-Point {pcname} PC Using {basis_txt_str}" #TODO: Do not really need this
-    metadata = f"{i}-Iteration Simulation Results For {cs_percentage_str}% CS Ratio | {num_points} points {ds_str} | NYCOpenData {pcname} PC | {measurement_type_str} Measurement | {basis_txt_str} | CVXPY ECOS (Embedded Conic Solver) Reconstruction"
+    metadata = f"{i}-Iteration Simulation Results For {cs_percentage_str}% CS Ratio | {num_points} points {ds_str} | {pcname} PC | {measurement_type_str} Measurement | {basis_txt_str} | CVXPY ECOS (Embedded Conic Solver) Reconstruction"
 
     return outputpath, plot_title, metadata
     

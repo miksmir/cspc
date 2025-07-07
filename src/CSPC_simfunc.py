@@ -10,9 +10,7 @@ from CSPointCloud import CSPCdwt, CSPCdct, CSPCdft
 import CSPointCloud as CSPC
 from CSPointCloud import INPUT_PATH_PCLAS, OUTPUT_PATH_PCLAS
 
-#TODO Incorporate OUTPUT_PATH_PCLAS as default argument for `outpath`!!!!!
-
-def runCSPCdwt(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, measurement_type: str, wvlt: str, ds_type: str,  pcname: str = 'reconstructed.las', outputname: str = 'reconstructedpc.las', parallel = True) -> None:    
+def runCSPCdwt(inputpc: str, sparsity_val: int, cs_ratio: float, measurement_type: str, wvlt: str, ds_type: str,  pcname: str = 'Point Cloud', outputname: str = 'reconstructedpc.las', outpath: str = OUTPUT_PATH_PCLAS, parallel = True) -> None:    
     """
     Runs the script for CSPC DWT reconstruction of specified point cloud.
     
@@ -31,12 +29,6 @@ def runCSPCdwt(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, m
     ----------
     inputpc : str
         The file-name of .las file that is being reconstructed.
-    outpath: str 
-        Path to directory that will contain the generated output files.
-    outputname : str
-        Name of output files of reconstruction that will be generated. 
-        ***MUST end in .las extension!***
-        ("reconstructedpc.las" by default)
     sparsity_val : int
         Percentage of signal that will be sparse (have zero values). 
         (Example: If sparsity_val = 10, 10% of signal will have zero values).
@@ -53,11 +45,19 @@ def runCSPCdwt(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, m
     ds_type : str
         Type of downsampling that was done on input point cloud if you did
         preprocessing beforehand (i.e. uniform, voxel, none).
+    outputname : str, optional
+        Naming convention that all generated output files will follow. 
+        ***MUST end in .las extension!***
+        ("reconstructedpc.las" by default)
     pcname : str, optional
         Name of point cloud for plot and metadata labeling purposes 
-        ('reconstructed.las' by default)
+        ('Point Cloud' by default)
+    outpath: str, optional
+        Path to directory that will contain the generated output files.
+        (Default argument is `OUTPUT_PATH_PCLAS` from JSON config file.)        
     parallel : bool, optional
        Boolean that if set to False, disables CPU parallel processing.
+       (Default argument is True).
     
     Notes
     -----
@@ -73,7 +73,6 @@ def runCSPCdwt(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, m
     
     # Sets up proper parameters for generated outputs
     outputpath, plot_title, metadata = CSPC.setupParameters(path=outpath, lasfile=outputname, pcname=pcname, num_points=CSPC.pclength(os.path.join(INPUT_PATH_PCLAS, inputpc)), cs_ratio=cs_ratio, measurement_type=measurement_type, basis='DWT', wvlt=wvlt, ds_type=ds_type, sparsity=sparsity_val)
-    print("!!!!!!!!!!!" + outputpath)
     
     # ---------------------
     
@@ -122,7 +121,7 @@ def runCSPCdwt(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, m
     nycpc.exportCoords(outputfileoriginal=os.path.join(INPUT_PATH_PCLAS, inputpc), outputfilereconstructed=outputpath, outputformat='npy', exportchoice='both')
     
 
-def runCSPCdct(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, measurement_type: str, ds_type: str, pcname: str = 'reconstructed.las', outputname: str = 'reconstructedpc.las', parallel = True) -> None:
+def runCSPCdct(inputpc: str, sparsity_val: int, cs_ratio: float, measurement_type: str, ds_type: str, pcname: str = 'Point Cloud', outputname: str = 'reconstructedpc.las', outpath: str = OUTPUT_PATH_PCLAS, parallel = True) -> None:
     """
     Runs the script for CSPC DCT reconstruction of specified point cloud.
     
@@ -142,12 +141,6 @@ def runCSPCdct(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, m
     ----------
     inputpc : str
         The file-name of .las file that is being reconstructed.
-    outpath: str 
-        Path to directory that will contain the generated output files.
-    outputname : str
-        Name of output files of reconstruction that will be generated. 
-        ***MUST end in .las extension!***
-        ("reconstructedpc.las" by default).
     sparsity_val : int
         Percentage of signal that will be sparse (have zero values). 
          (Example: If sparsity_val = 10, 10% of signal will have zero values).
@@ -161,11 +154,19 @@ def runCSPCdct(inputpc: str, outpath: str, sparsity_val: int, cs_ratio: float, m
     ds_type : str
         Type of downsampling that was done on input point cloud if you did
         preprocessing beforehand (i.e. uniform, voxel, none).
+    outputname : str, optional
+        Naming convention that all generated output files will follow. 
+        ***MUST end in .las extension!***
+        ("reconstructedpc.las" by default).
     pcname : str, optional
         Name of point cloud for plot and metadata labeling purposes 
-        ('reconstructed.las' by default)    
+        ('Point Cloud' by default)
+    outpath: str, optional
+        Path to directory that will contain the generated output files.
+        (Default argument is `OUTPUT_PATH_PCLAS` from JSON config file.)        
     parallel : bool, optional
         Boolean that if set to False, disables CPU parallel processing.
+        (Default argument is True).
     
     Notes
     -----
