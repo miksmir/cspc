@@ -279,7 +279,7 @@ class CSPCdwt:
         self.y_r = CSPCdwt.transformIDWT1D(y_sparse_r, coeffs_template_y, wavelet) #TODO
         self.z_r = CSPCdwt.transformIDWT1D(z_sparse_r, coeffs_template_z, wavelet) #TODO
         
-        print(f"Solver time: {solve_time} [s]")
+        print(f"Solver Time: {solve_time} [s]")
         return solve_time
 
     def reconstructCVXPY_ray(self, measured_x, coeffs_template_x, measured_y, coeffs_template_y, measured_z, coeffs_template_z, phi, wavelet, n_cpus=2):
@@ -333,7 +333,7 @@ class CSPCdwt:
             self.y_r = CSPCdwt.transformIDWT1D(result_y_sparse_r, coeffs_template_y, wavelet) #TODO
             self.z_r = CSPCdwt.transformIDWT1D(result_z_sparse_r, coeffs_template_z, wavelet) #TODO
             
-            print(f"Solver time: {solve_time} [s]")
+            print(f"Solver Time: {solve_time} [s]")
             
             ray.shutdown()
             print("ray.shutdown() called.")
@@ -372,7 +372,7 @@ class CSPCdwt:
         self.y_r = CSPCdwt.transformIDWT1D(y_sparse_r, coeffs_template_y, wavelet) #TODO
         self.z_r = CSPCdwt.transformIDWT1D(z_sparse_r, coeffs_template_z, wavelet) #TODO
         
-        print(f"Solver time: {solve_time} [s]")
+        print(f"Solver Time: {solve_time} [s]")
         return solve_time, x_sparse_r, y_sparse_r, z_sparse_r
         
         pass    
@@ -747,7 +747,7 @@ class CSPCdct:
         self.y_r = CSPCdct.transformIDCT1D(y_sparse_r, norm=norm) #TODO
         self.z_r = CSPCdct.transformIDCT1D(z_sparse_r, norm=norm) #TODO
         
-        print(f"Solver time: {solve_time} [s]")
+        print(f"Solver Time: {solve_time} [s]")
         return solve_time
 
     def reconstructCVXPY_ray(self, measured_x, measured_y, measured_z, phi, norm='ortho', n_cpus=2):
@@ -802,7 +802,7 @@ class CSPCdct:
             self.z_r = CSPCdct.transformIDCT1D(result_z_sparse_r, norm=norm) #TODO
             
             
-            print(f"Solver time: {solve_time} [s]")
+            print(f"Solver Time: {solve_time} [s]")
             
             ray.shutdown()
             print("ray.shutdown() called.")
@@ -1162,7 +1162,7 @@ class CSPCdft:
         self.y_r = CSPCdft.transformIDFT1D(y_sparse_r) #TODO
         self.z_r = CSPCdft.transformIDFT1D(z_sparse_r) #TODO
         
-        print(f"Solver time: {solve_time} [s]")
+        print(f"Solver Time: {solve_time} [s]")
         return solve_time
 
     def reconstructCVXPY_ray(self, measured_x, measured_y, measured_z, phi):
@@ -1216,7 +1216,7 @@ class CSPCdft:
         self.y_r = CSPCdft.transformIDFT1D(result_y_sparse_r) #TODO
         self.z_r = CSPCdft.transformIDFT1D(result_z_sparse_r) #TODO
         
-        print(f"Solver time: {solve_time} [s]")
+        print(f"Solver Time: {solve_time} [s]")
         return solve_time
 
     def reconstructCosamp(): #TODO
@@ -1675,15 +1675,15 @@ def exportReconstructionInfo(info, errors, solve_time, sparsity, outputfile='D:/
     filetxt.write(f"Earth Mover's Distance: {errors['EMD']:.4f} \n")
     filetxt.write("\n")
     
-    # Solver time
-    filetxt.write(f"Solver time: {solve_time} [s]\n")
+    # Solver Time
+    filetxt.write(f"Solver Time: {solve_time} [s]\n")
     filetxt.write("\n")
-    # Sparsity values
+    # TODO: These sparsity values are not relevant anymore, REMOVE 
     filetxt.write("Sparsity values:\n")
     filetxt.write(f"        x: {sparsity['x']}\n")
-    # Solver time
+    # Solver Time
     filetxt.write(f"        y: {sparsity['y']}\n")
-    # Solver time
+    # Solver Time
     filetxt.write(f"        z: {sparsity['z']}\n")
         
     filetxt.close()
@@ -1707,8 +1707,8 @@ def exportReconstructionInfo(info, errors, solve_time, sparsity, outputfile='D:/
 #     filetxt.write(f"Average Root Mean Squared Error: {avg_RMSE:.4f} \n")
 #     # Mean Absolute Error
 #     filetxt.write(f"Average Mean Absolute Error: {avg_MAE:.4f} \n")
-#     # Solver time
-#     filetxt.write(f"Average Solver time: {avg_solvertime:.4f} [s]\n")
+#     # Solver Time
+#     filetxt.write(f"Average Solver Time: {avg_solvertime:.4f} [s]\n")
 #     filetxt.write("\n")
 #     filetxt.write("-----------------------------------")
 #     filetxt.write("\n2-Norm:\n")

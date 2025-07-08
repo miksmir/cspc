@@ -5,8 +5,10 @@ Created on Sat Apr 19 19:22:55 2025
 @author: Mikhail
 """
 
+import numpy as np
 import os
-import csv     
+import csv
+import pandas as pd
 from CSPointCloud import OUTPUT_PATH_PCLAS, OUTPUT_PATH_COMPILED
 
 def compile_csv_results(dir_path: str = OUTPUT_PATH_PCLAS, out_csv: str = 'out.csv') -> list[dict]:
@@ -45,7 +47,7 @@ def compile_csv_results(dir_path: str = OUTPUT_PATH_PCLAS, out_csv: str = 'out.c
     
     compiled_data = [] # Data from all parsed .txt files
     metadata = dict() # Data in each .txt file
-    fieldnames = ['Name', 'Points', 'CS Ratio', 'Measurement', 'Basis', 'Sparsity', 'Reconstruction', 'Solver time', '2-Norm Error', 'Mean Squared Error', 'Root Mean Squared Error', 'Mean Absolute Error', 'Chamfer Distance', 'Hausdorff Distance', 'Earth Mover\'s Distance']
+    fieldnames = ['Name', 'Points', 'CS Ratio', 'Measurement', 'Basis', 'Sparsity', 'Reconstruction', 'Solver Time', '2-Norm Error', 'Mean Squared Error', 'Root Mean Squared Error', 'Mean Absolute Error', 'Chamfer Distance', 'Hausdorff Distance', 'Earth Mover\'s Distance']
     
     # Scan through directory for all .txt files and parse them
     for filename in os.listdir(os.path.normpath(dir_path)):
@@ -95,3 +97,52 @@ def compile_csv_results(dir_path: str = OUTPUT_PATH_PCLAS, out_csv: str = 'out.c
                 writer.writerow(data)
         
     return compiled_data
+
+def extract_csv(csv_name: str, pd_query: str, x_axis: str, y_axis: str) -> tuple:
+    """
+    Extracts columns from compiled CSV results file to be used for plotting.
+    
+    This function converts the CSV file (from `OUTPUT_PATH_COMPILED`) into a 
+    Pandas dataframe and uses the Pandas library to select/filter data.
+
+    Parameters
+    ----------
+    csv_name : str
+        Name of CSV file containing compiled reconstruction results.
+    pd_query : str
+        String for querying Pandas dataframe.
+        (i.e. 'Column1 == x and Column2 > y and Column3 == "keyword"')
+        (Note: If key (column name) in query string has a space, 
+         backticks (``) are required by Pandas).
+    x_axis : str
+        Selection of parameter that would represent the independent value (or
+        x-axis) for plotting.
+        (i.e. 'Sparsity', 'CS Ratio').
+    y_axis : str
+        Selection of parameter that would represent the dependent value (or
+        y-axis) for plotting.
+        (i.e. 'Mean Absolute Error', 'Mean Squared Error', 
+         'Root Mean Squared Error', 'Chamfer Distance', 'Hausdorf Distance', 
+         'Earth Mover\'s Distance', 'Solver Time').        
+
+    Returns
+    -------
+    tuple
+        A tuple of two items: a NumPy array of extracted values selected by 
+        `x_axis` and a NumPy array of extracted values selected by `y_values`.
+        (Example: (sparsity_values, MAE_values)).
+        
+    Examples    
+    --------
+    sparsities, solvertimes = extract_csv(csv_name='ColumbusCircle_5000points.csv', pd_query='Basis == "DCT" and `CS Ratio` >= 25', x_axis='Sparsity', y_axis='Solver Time')
+    """
+    
+    df = pd.read_csv(os.path.join(OUTPUT_PATH_COMPILED, csv_name))
+    filtered_df = df.query(pd_query)
+    sorted_df = filtered_df.sort_values(by=x_axis, ascending=True, ignore_index=True)
+    
+    # Extract values into two separate NumPy arrays for plotting x and y
+    y_vals = np.array(sorted_df[y_axis].tolist())
+    x_vals = np.array(sorted_df[x_axis].tolist())
+    
+    return x_vals, y_vals
