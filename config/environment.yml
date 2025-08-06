@@ -1,7 +1,7 @@
 name: cs_thesis_cvxpy16_ray_pcu
 channels:
-  - conda-forge
   - defaults
+  - conda-forge
 dependencies:
   - alabaster=0.7.12=pyhd3eb1b0_0
   - anyio=4.2.0=py310haa95532_0
