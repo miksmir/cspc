@@ -1,4 +1,4 @@
-name: testenv
+name: cs_thesis_cvxpy16_ray_pcu
 channels:
   - defaults
   - https://repo.anaconda.com/pkgs/main
